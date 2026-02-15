@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The People's Community</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sun-gold: #F2A341;
+    --burnt-orange: #D4723C;
+    --sunset-red: #C2533A;
+    --warm-cream: #FFF8F0;
+    --deep-earth: #2B1810;
+    --soft-peach: #FFECD2;
+    --amber-glow: #FFB347;
+    --dusk-rose: #E8735A;
+    --warm-brown: #5C3A28;
+    --light-amber: #FFF3E0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--warm-cream);
+    color: var(--deep-earth);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(255, 248, 240, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212, 114, 60, 0.1);
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--deep-earth);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--burnt-orange); }
+
+  .nav-cta {
+    background: var(--burnt-orange);
+    color: white;
+    border: none;
+    padding: 0.65rem 1.8rem;
+    border-radius: 100px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+  .nav-cta:hover {
+    background: var(--sunset-red);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(194, 83, 58, 0.3);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -20%;
+    width: 80vw; height: 80vw;
+    background: radial-gradient(circle, rgba(242, 163, 65, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 12s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20%; left: -15%;
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(232, 115, 90, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 15s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -20px) scale(1.05); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 750px;
+    animation: fadeUp 1s ease-out;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--burnt-orange);
+    margin-bottom: 1.5rem;
+    padding: 0.4rem 1.2rem;
+    border: 1.5px solid var(--burnt-orange);
+    border-radius: 100px;
+    animation: fadeUp 1s ease-out 0.2s both;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    line-height: 1.1;
+    color: var(--deep-earth);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+    animation: fadeUp 1s ease-out 0.3s both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--burnt-orange);
+    display: block;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--warm-brown);
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeUp 1s ease-out 0.5s both;
+  }
+
+  .hero-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--sun-gold), var(--burnt-orange));
+    color: white;
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 100px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 25px rgba(212, 114, 60, 0.3);
+    animation: fadeUp 1s ease-out 0.7s both;
+  }
+  .hero-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 35px rgba(212, 114, 60, 0.45);
+  }
+
+  /* ─── SUN DIVIDER ─── */
+  .sun-divider {
+    width: 100%;
+    height: 120px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sun-divider::before {
+    content: '';
+    width: 60px; height: 60px;
+    background: radial-gradient(circle, var(--sun-gold) 30%, var(--amber-glow) 60%, transparent 70%);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(242, 163, 65, 0.4), 0 0 80px rgba(242, 163, 65, 0.15);
+  }
+  .sun-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 5%; right: 5%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--sun-gold), transparent);
+    opacity: 0.3;
+  }
+
+  /* ─── ABOUT ─── */
+  .about {
+    padding: 5rem 2rem 6rem;
+    text-align: center;
+  }
+
+  .about-inner {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dusk-rose);
+    margin-bottom: 1rem;
+  }
+
+  .about h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--deep-earth);
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .about p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--warm-brown);
+    margin-bottom: 1rem;
+    text-align: justify;
+  }
+  .about p:last-child { margin-bottom: 0; }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    padding: 6rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--deep-earth) 0%, #3D221A 50%, var(--warm-brown) 100%);
+    color: white;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -40%; right: -20%;
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(242, 163, 65, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--soft-peach);
+  }
+
+  .cta-section p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255, 236, 210, 0.7);
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--sun-gold), var(--burnt-orange));
+    color: white;
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 100px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 25px rgba(242, 163, 65, 0.25);
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 35px rgba(242, 163, 65, 0.4);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2.5rem 3rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--warm-brown);
+    opacity: 0.6;
+    line-height: 1.8;
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(43, 24, 16, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    padding: 1rem;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal {
+    background: white;
+    border-radius: 28px;
+    padding: 3rem;
+    max-width: 460px;
+    width: 100%;
+    position: relative;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.4s ease;
+    box-shadow: 0 30px 80px rgba(43, 24, 16, 0.2);
+    text-align: center;
+  }
+  .modal-overlay.active .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem; right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--warm-brown);
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    line-height: 1;
+  }
+  .modal-close:hover { opacity: 1; }
+
+  .modal-sun {
+    width: 50px; height: 50px;
+    background: radial-gradient(circle, var(--sun-gold) 40%, var(--amber-glow) 70%, transparent 72%);
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 0 30px rgba(242, 163, 65, 0.3);
+  }
+
+  .modal h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--deep-earth);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .modal p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--warm-brown);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ─── MODAL STEPS ─── */
+  .modal-step {
+    display: none;
+  }
+  .modal-step.active {
+    display: block;
+    animation: fadeUp 0.4s ease-out;
+  }
+
+  /* Path selection buttons */
+  .path-select-btn {
+    display: block;
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    border-radius: 100px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+    border: none;
+    color: white;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+
+  .path-select-btn:last-child {
+    margin-bottom: 0;
+  }
+
+  .path-select-pod {
+    background: linear-gradient(135deg, var(--sun-gold), var(--burnt-orange));
+    box-shadow: 0 4px 18px rgba(212, 114, 60, 0.25);
+  }
+  .path-select-pod:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(212, 114, 60, 0.4);
+  }
+
+  .path-select-build {
+    background: linear-gradient(135deg, var(--dusk-rose), var(--sunset-red));
+    box-shadow: 0 4px 18px rgba(194, 83, 58, 0.25);
+  }
+  .path-select-build:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(194, 83, 58, 0.4);
+  }
+
+  .path-select-sub {
+    display: block;
+    font-weight: 300;
+    font-size: 0.8rem;
+    opacity: 0.85;
+    margin-top: 0.15rem;
+  }
+
+  /* Form inputs */
+  .modal-path-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--burnt-orange);
+    background: var(--light-amber);
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .modal-input {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 1.5px solid rgba(212, 114, 60, 0.2);
+    border-radius: 14px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    color: var(--deep-earth);
+    background: var(--light-amber);
+    outline: none;
+    transition: border-color 0.3s;
+    margin-bottom: 0.75rem;
+  }
+  .modal-input:focus { border-color: var(--burnt-orange); }
+  .modal-input::placeholder { color: rgba(92, 58, 40, 0.4); }
+
+  .modal-submit {
+    width: 100%;
+    background: linear-gradient(135deg, var(--sun-gold), var(--burnt-orange));
+    color: white;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 14px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .modal-submit:hover {
+    box-shadow: 0 6px 25px rgba(212, 114, 60, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .modal-back {
+    background: none;
+    border: none;
+    color: var(--warm-brown);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    margin-top: 1rem;
+    display: inline-block;
+  }
+  .modal-back:hover { opacity: 1; }
+
+  .checkmark {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--sun-gold), var(--burnt-orange));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.5rem;
+    color: white;
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .logo { font-size: 1.2rem; }
+    .nav-cta { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
+    .hero { min-height: 90vh; padding: 6rem 1.5rem 3rem; }
+    .about { padding: 3rem 1.5rem 4rem; }
+    .cta-section { padding: 4rem 1.5rem; }
+    .modal { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">The People's <span>Community</span></a>
+  <button class="nav-cta" onclick="openModal()">Start Here</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Community Built on Care</div>
+    <h1>Real Support. Real People.<em>Right Next Door.</em></h1>
+    <p>Simple tools to help you and the people around you take care of each other.</p>
+    <button class="hero-btn" onclick="openModal()">Start Here</button>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="sun-divider"></div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-inner reveal">
+    <div class="section-label">What is TPC?</div>
+    <h2>Making it easy for people to care</h2>
+    <p>The People's Community is a set of simple, accessible tools that help individuals and small groups share skills, exchange resources, coordinate care, and build stronger, more resilient lives — together.</p>
+    <p>No organization. No hierarchy. No gatekeeping. Just people showing up for each other, with the right tools to make it work.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2>It starts with showing up</h2>
+    <p>Whether you want to care for the people around you or help build the tools that make it possible — there's a place for you here.</p>
+    <button class="cta-btn" onclick="openModal()">Start Here</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Made with Community Love.
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+
+    <!-- STEP 1: Choose path -->
+    <div class="modal-step active" id="stepPath">
+      <div class="modal-sun"></div>
+      <h2>Join the Community</h2>
+      <p>There are two ways in. Which sounds like you?</p>
+      <button class="path-select-btn path-select-pod" onclick="selectPath('pod')">
+        Build a Pod
+        <span class="path-select-sub">Start a small group of people who care for each other</span>
+      </button>
+      <button class="path-select-btn path-select-build" onclick="selectPath('build')">
+        Help Build TPC
+        <span class="path-select-sub">Help create the tools and frameworks that power it all</span>
+      </button>
+    </div>
+
+    <!-- STEP 2: Form -->
+    <div class="modal-step" id="stepForm">
+      <div class="modal-sun"></div>
+      <div class="modal-path-label" id="pathLabel"></div>
+      <h2>Almost there</h2>
+      <p>We'll send you everything you need to get started.</p>
+      <input type="text" class="modal-input" id="nameInput" placeholder="Your name">
+      <input type="email" class="modal-input" id="emailInput" placeholder="Your email">
+      <button class="modal-submit" onclick="submitForm()">Join the Community</button>
+      <button class="modal-back" onclick="goBack()">&#8592; Choose a different path</button>
+    </div>
+
+    <!-- STEP 3: Success -->
+    <div class="modal-step" id="stepSuccess">
+      <div class="checkmark">&#10003;</div>
+      <h2>Welcome!</h2>
+      <p>Check your inbox — your next steps are on the way.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let selectedPath = '';
+
+  function openModal() {
+    document.getElementById('modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    showStep('stepPath');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      showStep('stepPath');
+      document.getElementById('nameInput').value = '';
+      document.getElementById('emailInput').value = '';
+      selectedPath = '';
+    }, 400);
+  }
+
+  function showStep(id) {
+    document.querySelectorAll('.modal-step').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function selectPath(path) {
+    selectedPath = path;
+    const label = document.getElementById('pathLabel');
+    label.textContent = path === 'pod' ? 'Build a Pod' : 'Help Build TPC';
+    showStep('stepForm');
+  }
+
+  function goBack() {
+    showStep('stepPath');
+  }
+
+  function submitForm() {
+    const name = document.getElementById('nameInput').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+
+    if (!name || !email) {
+      const modal = document.querySelector('.modal');
+      modal.style.animation = 'shake 0.4s ease';
+      setTimeout(() => modal.style.animation = '', 400);
+      return;
+    }
+
+    showStep('stepSuccess');
+
+    // TODO: Wire to Listmonk — selectedPath tells you which email to send
+    console.log('New signup:', { name, email, path: selectedPath });
+  }
+
+  // Close on overlay click
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
