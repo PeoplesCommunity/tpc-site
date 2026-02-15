@@ -693,10 +693,25 @@
       return;
     }
 
-    showStep('stepSuccess');
+    // Determine which Brevo list based on path
+    const listId = selectedPath === 'pod' ? 12 : 13;
 
-    // TODO: Wire to Listmonk — selectedPath tells you which email to send
-    console.log('New signup:', { name, email, path: selectedPath });
+    // Send to Cloudflare Worker (API key is hidden server-side)
+    fetch('https://tpc-signup.peoplescommunity.xyz/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        name: name,
+        listId: listId
+      })
+    })
+    .then(res => {
+      if (!res.ok) console.error('Signup error:', res.status);
+    })
+    .catch(err => console.error('Signup error:', err));
+
+    showStep('stepSuccess');
   }
 
   // Close on overlay click
