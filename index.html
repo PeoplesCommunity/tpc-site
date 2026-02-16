@@ -697,7 +697,7 @@
     const listId = selectedPath === 'pod' ? 12 : 13;
 
     // Send to Cloudflare Worker (API key is hidden server-side)
-    fetch('https://tpc-signup.peoplescommunity.xyz/signup', {
+    fetch('https://tpc-signup.peoplescommunity.workers.dev/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
